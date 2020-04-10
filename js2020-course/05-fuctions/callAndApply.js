@@ -11,15 +11,18 @@ const produto = {
 
 global.preco = 20
 global.desc = 0.1
+// No proprio contexto
 console.log(getPreco())
+// Em um objecto
 console.log(produto.getPreco())
 
 const carro = {
     preco: 49990,
     desc: 0.20
 }
-
+// Pela função call
 console.log(getPreco.call(carro))
+// Pela função apply
 console.log(getPreco.apply(carro))
 
 console.log(getPreco.call(carro, 0.17, '$'))
