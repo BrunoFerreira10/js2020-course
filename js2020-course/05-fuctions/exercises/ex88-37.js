@@ -1,36 +1,37 @@
-function arithmeticProgression(terms, n1, ratio, arr){
-    arr.push(n1 + (terms * ratio))
+function arithmeticProgression(terms, n1, ratio, arr = []){
     
-    if(terms == 0){
-        return n1
-    } else {
-        return arithmeticProgression(terms - 1, n1, ratio, arr)
-    }        
-}
-
-function geometricProgression(terms, n1, ratio, arr){
-    arr.push(n1 * ratio ** (terms - 1))
-    
+    arr.unshift(n1 + (terms - 1) * ratio)
+  
     if(terms == 1){
         return n1
     } else {
-        return geometricProgression(terms - 1, n1, ratio, arr)
+        arithmeticProgression(terms - 1, n1, ratio, arr)
+        if(terms == arr.length){
+            let sum = (terms/2) * (n1 + (n1 + ((terms+1) * ratio)))
+            console.log(`PA(${terms},${n1},${ratio}): ${arr}. SUM = ${sum}`)                              
+        }    
+        return arr
+    }        
+}
+
+function geometricProgression(terms, n1, ratio, arr = []){
+    arr.unshift(n1 * (ratio ** (terms - 1)))    
+    if(terms == 1){
+        return n1
+    } else {        
+        geometricProgression(terms - 1, n1, ratio, arr)
+        if(terms == arr.length){
+            let sum = (n1*(1-ratio ** terms)) / (1 - ratio)
+            console.log(`PG(${terms},${n1},${ratio}): ${arr}. SUM = ${sum}`)                  
+        } 
+        return arr
     }        
 }
 
 // My tests
 console.log("--------- My tests ----------");
-let termsArray = []
-
-arithmeticProgression(5,1,3,termsArray)
-termsArray.reverse()
-console.log(termsArray)
-
-termsArray = []
-geometricProgression(10,2,3,termsArray)
-termsArray.reverse()
-console.log(termsArray)
-
+arithmeticProgression(5,1,2)
+geometricProgression(5,1,2)
 
 // Answer tests
 console.log("--------- Answer tests ----------");
