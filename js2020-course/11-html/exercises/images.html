@@ -35,17 +35,10 @@
 </div>
 
 <style>
-    @keyframes slide{
-        from {left: -50%;}
-        to{left: 100%;}
-    }
-
+    
     p{
         display: none;
-        position: fixed;
-        left: 0%;
-        animation-name: slide;
-        animation-duration: 4s;
+        position: absolute;        
     }
 
     [wm-slider]{
@@ -75,21 +68,40 @@
     }
 </style>
 <script>
-    const slideContainer = document.querySelectorAll('[wm-slider]')    
-    const slides = document.querySelectorAll('[wm-slider] p')
+    function move(element, start, end, step, callback){
+        const newStart = start - step
+        if(newStart >= end){
+            element.style.left = newStart + 'px'
+            setTimeout(() => move(element, newStart, end, step, callback), 7)
+        } else {
+            callback()
+        }
+    }
 
-    const showSlide = (slideNr) => {
-        slides.forEach(slide => {
+    function slider(){
+        const elements = document.querySelectorAll('[wm-slider] > p')
+        const slides = Array.from(elements)
+        showSlides(slides, slides[0])        
+    }
+
+    function showSlides(slides, slide){
+        slide.style.display = 'block'
+        const start = innerWidth
+        const end = -slide.clientWidth
+
+        slide.style.left = `${start}px`
+        move(slide, start, end, 5, () => {
             slide.style.display = 'none'
+            showSlides(slides, getNext(slides, slide))
         })
-        slides[slideNr].style.display = 'block'        
-    }     
+    }
 
-    let slideNr = 0
-    setInterval(()=>{
-        showSlide(slideNr)        
-        slideNr = slideNr < slides.length - 1 ? slideNr + 1 : 0
-    },4000)
-    
+    function getNext(slides, slide){
+        // debugger
+        const index = slides.indexOf(slide) + 1
+        return index < slides.length ? slides[index] : slides[0]
+    }
+
+    slider()
     
 </script>
