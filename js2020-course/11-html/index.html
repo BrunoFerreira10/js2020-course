@@ -32,11 +32,11 @@
                 link.onclick = function(e) {
                     e.preventDefault()                    
                     fetch(link.href)
-                        .then(resp => resp.text())
-                        .then(html => contents.innerHTML = html)
+                        .then(resp => resp.text())                        
+                        .then(html => contents.innerHTML = html)                        
                 }
 
             })
         </script>
     </body>
-</html>
+</html> 
