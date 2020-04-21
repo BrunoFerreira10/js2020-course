@@ -1,50 +1,67 @@
 <h1>Images</h1>
+<div wm-slider>
 
-<p>
-    <img src="http://files.cod3r.com.br/curso-web/imagem1.jpg" 
-        alt="City Wall"
-        width="513" height="342"
-        title="City Wall by Tarso Bessa ">
-</p>
+    <p>
+        <img src="http://files.cod3r.com.br/curso-web/imagem1.jpg" alt="City Wall" width="513" height="342"
+            title="City Wall by Tarso Bessa ">
+    </p>
 
-<p>
-    <img src="http://files.cod3r.com.br/curso-web/imagem2.gif" 
-        alt="Intro Cod3r" height="342">
-</p>
+    <p>
+        <img src="http://files.cod3r.com.br/curso-web/imagem2.gif" alt="Intro Cod3r" height="342">
+    </p>
 
-<p class="circular">
-    <img src="http://files.cod3r.com.br/curso-web/imagem3.png" 
-        alt="Rio de Janeiro" height="342">
-</p>
+    <p class="circular">
+        <img src="http://files.cod3r.com.br/curso-web/imagem3.png" alt="Rio de Janeiro" height="342">
+    </p>
 
-<p class="text">
-    <img src="http://files.cod3r.com.br/curso-web/avatar.jpg" 
-        alt="Avatar" height="50" align="left">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sint voluptatum molestiae, recusandae soluta cum deleniti ea in est, dolores ad quis sed assumenda nisi asperiores mollitia ex, doloribus itaque. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis voluptate similique itaque at, cumque voluptates, repudiandae veritatis odio, modi dolores corrupti sequi ratione ex magnam aliquam quod? Voluptates, minima eum!
-</p>
+    <p class="text">
+        <img src="http://files.cod3r.com.br/curso-web/avatar.jpg" alt="Avatar" height="50" align="left">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sint voluptatum molestiae, recusandae soluta
+        cum deleniti ea in est, dolores ad quis sed assumenda nisi asperiores mollitia ex, doloribus itaque. Lorem
+        ipsum, dolor sit amet consectetur adipisicing elit. Officiis voluptate similique itaque at, cumque voluptates,
+        repudiandae veritatis odio, modi dolores corrupti sequi ratione ex magnam aliquam quod? Voluptates, minima eum!
+    </p>
 
-<p class="city">
-</p>
+    <p class="city">
+    </p>
 
-<p>
-    <picture>
-        <source srcset="http://files.cod3r.com.br/curso-web/logo-larga.png"
-            media="(min-width: 600px)">
+    <p>
+        <picture>
+            <source srcset="http://files.cod3r.com.br/curso-web/logo-larga.png" media="(min-width: 600px)">
             <img src="http://files.cod3r.com.br/curso-web/logo-estreita.png" alt="Logo">
-    </picture>
-</p>
+        </picture>
+    </p>
+    
+</div>
 
 <style>
-    .circular{
+    @keyframes slide{
+        from {left: -50%;}
+        to{left: 100%;}
+    }
+
+    p{
+        display: none;
+        position: fixed;
+        left: 0%;
+        animation-name: slide;
+        animation-duration: 4s;
+    }
+
+    [wm-slider]{
+        height: 350px;
+    }
+
+    .circular {
         width: 513px;
         background-color: #444;
     }
 
-    .text{
-        width: 513px;        
+    .text {
+        width: 513px;
     }
 
-    .text img{
+    .text img {
         margin-right: 10px;
     }
 
@@ -57,3 +74,22 @@
         background-size: 200%;
     }
 </style>
+<script>
+    const slideContainer = document.querySelectorAll('[wm-slider]')    
+    const slides = document.querySelectorAll('[wm-slider] p')
+
+    const showSlide = (slideNr) => {
+        slides.forEach(slide => {
+            slide.style.display = 'none'
+        })
+        slides[slideNr].style.display = 'block'        
+    }     
+
+    let slideNr = 0
+    setInterval(()=>{
+        showSlide(slideNr)        
+        slideNr = slideNr < slides.length - 1 ? slideNr + 1 : 0
+    },4000)
+    
+    
+</script>
