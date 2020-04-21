@@ -28,8 +28,35 @@
         height: 100%;
         text-align: right;
         font-size: 14px;
-        width: 30%;        
+        width: 0%;        
     }
 </style>
+
+<script>
+
+    const playButton = document.querySelector('[wm-play]')
+    const pauseButton = document.querySelector('[wm-pause]')
+    const progressBar = document.querySelector('[wm-progress]')
+    
+    playButton.onclick = event => {
+        const video = document.querySelector(`#${playButton.getAttribute('wm-play')}`)
+        video.play()
+    }
+
+    pauseButton.onclick = event => {
+        const video = document.querySelector(`#${pauseButton.getAttribute('wm-pause')}`)
+        video.pause()
+    }
+
+    setInterval(() => {
+        const video = document.querySelector(`#${progressBar.getAttribute('wm-progress')}`)
+        const currentTime = video.currentTime
+        const totalTime = video.duration
+        const progressPercent = ((currentTime / totalTime) * 100).toFixed(2)       
+        progressBar.childNodes[1].style.width = `${progressPercent}%`
+    }, 250);
+
+    
+</script>
 
 
