@@ -1,0 +1,35 @@
+<h1>Videos</h1>
+
+<video id="myVideo" width="800px" class="videos" controls> 
+    <source src="http://files.cod3r.com.br/curso-web/video.mp4" type="video/mp4">
+    Video not supported.
+</video>
+
+<div wm-progress="myVideo" class="progress">
+    <div></div>
+</div>
+
+<div>
+    <button wm-play="myVideo">Play</button>
+    <button wm-pause="myVideo">Pause</button>
+</div>
+
+<style>
+    .progress{
+        height: 20px;
+        width: 800px;        
+        border: solid 1px #dedede;
+        margin: 20px 0px;
+    }
+
+    .progress > div{
+        background-color: red;
+        color: white;
+        height: 100%;
+        text-align: right;
+        font-size: 14px;
+        width: 30%;        
+    }
+</style>
+
+
