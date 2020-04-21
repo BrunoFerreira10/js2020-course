@@ -3,5 +3,42 @@
 <form action="http://localhost:3003/users" method="post">
 
     <input type="text" name="name">
+    <input type="password" name="password">
+    <textarea name="bio" id="" cols="30" rows="10"></textarea>
+    <div>
+        <input type="radio" name="type" value="admin"> Admin
+        <input type="radio" name="type" value="regular">Regular
+        <input type="radio" name="type" value="teacher">Teacher
+    </div>
+    <div>
+        <input type="checkbox" name="active"> Active
+    </div>
+    <select name="state">
+        <option value="">Select</option>
+        <option value="ac">Acre</option>
+        <option value="ba">Bahia</option>
+        <option value="ce">Ceará</option>
+    </select>
+    <select name="interests" multiple size="5">
+        <option value="js">Javascript</option>
+        <option value="java">Java</option>
+        <option value="php">PHP</option>
+        <option value="python">Python</option>
+        <option value="go">Go</option>
+        <option value="c">C</option>
+    </select>
     <button>Submit</button>
 </form>
+
+<style>
+    input, textarea, select{
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    input[type=radio],
+    input[type=checkbox] {
+        display: inline;
+    }
+
+</style>
