@@ -1,7 +1,7 @@
 <h1>Forms</h1>
 
-<form action="http://localhost:3003/users" method="post">
-
+<form method="post">
+    <input type="hidden" name="id" value="3">
     <input type="text" name="name">
     <input type="password" name="password">
     <textarea name="bio" id="" cols="30" rows="10"></textarea>
@@ -27,7 +27,8 @@
         <option value="go">Go</option>
         <option value="c">C</option>
     </select>
-    <button>Submit</button>
+    <button formaction="http://localhost:3003/users">Submit</button>
+    <button formaction="http://localhost:3003/users/3">Update</button>
 </form>
 
 <style>
