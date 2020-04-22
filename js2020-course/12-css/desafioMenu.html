@@ -7,7 +7,111 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-        /* ... */
+        @media(max-width: 750px) {
+            .autenticacao {
+                display: none;
+            }
+        }
+
+        @media(min-width: 550px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .menu {
+                display: none;
+            }
+        }
+
+        html {
+            height: 3000px;
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .cabecalho {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 60px;
+            background-color: #333;
+            border-bottom: solid 3px #53b0db;
+        }
+
+        .logo {
+            display: inline-block;
+            box-sizing: border-box;
+            height: 100%;
+            padding: 10px;
+        }
+
+        .logo img {
+            height: 100%;
+        }
+
+        .menu {
+            display: inline-block;
+            vertical-align: bottom;
+            margin-bottom: 15px;
+        }
+
+        .menu ul {
+            display: inline-block;
+        }
+
+        .menu li {
+            display: inline-block;
+            background-color: #0000;
+            padding: 0px 10px;
+            height: 100%;
+        }
+
+        .menu li:hover {
+            background-color: #53b0db;
+            color: #333;
+        }
+
+        .menu-toggle {
+            float: right;
+            margin: 15px;
+            padding: 5px;
+            background-color: #555;
+            border: solid 1px #777;
+            border-radius: 5px;
+            color: #ddd;
+        }
+
+        .autenticacao {
+            float: right;
+            margin: 20px 15px;
+
+        }
+
+        .autenticacao a {
+            padding: 0px 10px;
+        }
+
+        .autenticacao .destaque {
+            background-color: rgb(224, 47, 47);
+            border: solid 0px;
+            border-radius: 20px;
+            padding: 5px 15px;
+        }
     </style>
 </head>
 
@@ -44,7 +148,24 @@
     </header>
 
     <script>
-        // ...
+        const navLinks = document.querySelectorAll('.menu li')
+        const logoLink = document.querySelector('.logo a')
+        navLinks.forEach(link => {
+            link.onclick = event => {
+                navLinks.forEach(link => {
+                    link.style['background-color'] = '#0000'
+                })
+                link.style['background-color'] = '#53b0db'
+            }
+        })
+
+        logoLink.onclick = event => {
+            navLinks.forEach(link => {
+                link.style['background-color'] = '#0000'
+            })
+            document.querySelector('.menu li:nth-child(1)').style['background-color'] = '#53b0db'
+        }
+
     </script>
 </body>
 
