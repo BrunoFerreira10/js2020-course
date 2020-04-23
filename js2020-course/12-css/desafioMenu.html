@@ -7,111 +7,110 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-        @media(max-width: 750px) {
-            .autenticacao {
-                display: none;
-            }
+        * {
+            box-sizing: border-box;
         }
 
-        @media(min-width: 550px) {
+        body{
+            margin: 0;
+            font-family: 'Oswald', sans-serif;
+            background-color: lightgray;
+        }
+
+        .cabecalho{
+            background-color: #333;
+            border-bottom: solid 5px #4faddb;
+            height: 80px;
+            box-sizing: content-box;
+        }
+
+        .logo{
+            display: inline-block;
+            height: 80px;
+            padding: 15px;
+        }
+
+        .logo img{
+            height: 100%;
+        }
+
+        .menu-toggle {
+            float: right;
+            color: #eee;
+            background-color: #555;
+            border: solid 1px #777;
+            border-radius: 5px;
+            height: 40px;
+            padding: 10px 20px;
+            margin: 20px 15px;
+        }
+
+        .menu {
+            display: inline-block;
+            vertical-align: top;
+            height: 80px;
+            padding: 25px;
+        }
+
+        .menu ul {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .menu li {
+            display: inline-block;
+        }
+
+        .cabecalho a{
+            text-decoration: none;
+            color: #eee;
+            font-size: 1.3em;            
+        }
+
+        .menu a {
+            padding: 15px;
+        }
+
+        .autenticacao {
+            float: right;
+            height: 80px;
+            padding: 25px;
+        }
+
+        .menu a:hover, .menu .selected {
+            background-color: #4faddb;
+            color: #000;            
+        }
+
+       .botao {
+            border-radius: 30px;
+            padding: 10px 25px;
+            margin: 10px;
+        }
+
+        .destaque {
+            background: #f50a31;
+            color:#fff;
+        }
+
+        @media(min-width: 679px){
             .menu-toggle {
                 display: none;
             }
         }
 
-        @media(max-width: 550px) {
+        @media(max-width: 680px) {
             .menu {
                 display: none;
             }
         }
 
-        html {
-            height: 3000px;
+        @media(max-width: 910px){
+            .autenticacao {
+                display: none;
+            }
         }
 
-        * {
-            margin: 0px;
-            padding: 0px;
-        }
-
-        body {
-            font-family: 'Oswald', sans-serif;
-        }
-
-        a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .cabecalho {
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 60px;
-            background-color: #333;
-            border-bottom: solid 3px #53b0db;
-        }
-
-        .logo {
-            display: inline-block;
-            box-sizing: border-box;
-            height: 100%;
-            padding: 10px;
-        }
-
-        .logo img {
-            height: 100%;
-        }
-
-        .menu {
-            display: inline-block;
-            vertical-align: bottom;
-            margin-bottom: 15px;
-        }
-
-        .menu ul {
-            display: inline-block;
-        }
-
-        .menu li {
-            display: inline-block;
-            background-color: #0000;
-            padding: 0px 10px;
-            height: 100%;
-        }
-
-        .menu li:hover {
-            background-color: #53b0db;
-            color: #333;
-        }
-
-        .menu-toggle {
-            float: right;
-            margin: 15px;
-            padding: 5px;
-            background-color: #555;
-            border: solid 1px #777;
-            border-radius: 5px;
-            color: #ddd;
-        }
-
-        .autenticacao {
-            float: right;
-            margin: 20px 15px;
-
-        }
-
-        .autenticacao a {
-            padding: 0px 10px;
-        }
-
-        .autenticacao .destaque {
-            background-color: rgb(224, 47, 47);
-            border: solid 0px;
-            border-radius: 20px;
-            padding: 5px 15px;
-        }
     </style>
 </head>
 
@@ -148,24 +147,14 @@
     </header>
 
     <script>
-        const navLinks = document.querySelectorAll('.menu li')
-        const logoLink = document.querySelector('.logo a')
-        navLinks.forEach(link => {
-            link.onclick = event => {
-                navLinks.forEach(link => {
-                    link.style['background-color'] = '#0000'
-                })
-                link.style['background-color'] = '#53b0db'
-            }
-        })
-
-        logoLink.onclick = event => {
-            navLinks.forEach(link => {
-                link.style['background-color'] = '#0000'
-            })
-            document.querySelector('.menu li:nth-child(1)').style['background-color'] = '#53b0db'
+        window.onhashchange = function(e) {
+            const oldURL = e.oldURL.split('#')[1]
+            const newURL = e.newURL.split('#')[1]
+            const oldLink = document.querySelector(`.menu a[href='#${oldURL}']`)
+            const newLink = document.querySelector(`.menu a[href='#${newURL}']`)
+            oldLink && oldLink.classList.remove('selected')
+            newLink && newLink.classList.add('selected')
         }
-
     </script>
 </body>
 
