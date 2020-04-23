@@ -4,62 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Desafio Card</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-        }
-        
-        body > div {
-            margin-left: 10px ;
-        }
-
 
         .curso{
             display: inline-block;
-            width: 250px;
-            padding: 5px;
-            margin: 20px;            
-            box-shadow: 2px 5px 5px 2px darkgray ;   
-            border: solid 1px #0000;         
-            border-radius: 1px;
+            vertical-align: top;
+            font-family: Verdana, sans-serif;
+            border: solid 1px #CCC;
+            box-shadow: 0 4px 20px 0 rgba(0,0,0,0.3);
             height: 300px;
+            width: 260px;
+            margin: 5px 20px;
+            padding: 5px;
         }
 
         .curso img {            
             width: 100%;
+            max-height: 50%;
         }
 
         .curso-info {
-            max-height: 120px;
+            padding: 10px;
+            height: 90px;
             overflow: hidden;                      
         }
 
         .curso-info h4{    
-            font-size: 1.5em;        
-            font-weight: bold;  
-            margin: 10px 0px;   
-        }
-
-        .curso-info p{            
-            font-size: 1em;        
-            font-weight: bold;           
+            font-size: 1.4em;        
+            font-weight: 100;  
+            margin: 0px;   
         }
 
         .curso-preco{
             float: right;
+            padding: 10px;
         }
 
-        .curso-preco span:nth-child(1){
-            color: rgb(216, 31, 31);
+        .preco-de{
+            color: firebrick;
             text-decoration-line: line-through;
-            font-size: 1em;            
         }
 
-        .curso-preco span:nth-child(2){
-            color: rgb(37, 155, 37);            
-            font-size: 1.5em;
+        .preco-por{
+            color: green;     
+            font-size: 1.4em;
             font-weight: bold;
         }
         
