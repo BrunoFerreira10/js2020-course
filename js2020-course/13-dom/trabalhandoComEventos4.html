@@ -31,6 +31,37 @@
         <button wm-submit>Pesquisar</button>
     </form>
     <script>
-        // ...
+        /* const submit = document.querySelector('[wm-submt]')
+        submit.onclick = function (event) {
+            event.preventDefault()
+        
+            const form = event.target.parentNode
+            const formData = new FormData(form)
+            formData.append('ajax', true)
+            console.log(formData.get('q'))
+            console.log(formData.get('hl'))
+
+            for(const data of formData) {
+                console.log(dado)
+            }
+        } */
+
+        const form = document.forms[0]
+        form.onsubmit = function (event) {
+            event.preventDefault()        
+
+            const form = event.target
+            const formData = new FormData(form)
+            formData.append('ajax', true)
+            console.log(formData.get('q'))
+            console.log(formData.get('hl'))
+
+            for(const data of formData) {
+                console.log(data)
+            }
+        }
+
+        
+
     </script>
 </body>
