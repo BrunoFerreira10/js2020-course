@@ -9,9 +9,23 @@
 
 <body class="conteudo exercicio">
     <div>
-        <a href="https://google.com.br">Google</a>
+
+        <!-- <a href="https://google.com.br">Google</a> -->
+        <!-- <a href="https://google.com.br" onclick="navigateIn5s(event)">Google</a> -->
+        <a wm-wait href="https://google.com.br">Google</a>
     </div>
     <script>
-        // ...
+        function navigateIn5s(evt) {
+            evt.preventDefault()
+            console.log('Leaving in 5 seconds')
+            setTimeout(() => {
+                window.location.href = evt.target.href
+            }, 5000)
+        }
+
+        // const link = document.querySelector('a')
+        const link = document.querySelector('[wm-wait]')
+        link.onclick = navigateIn5s
+
     </script>
 </body>
