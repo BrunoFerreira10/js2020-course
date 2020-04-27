@@ -1,0 +1,68 @@
+@font-face {
+    font-family: 'Pixel';
+    src: url('../fonts/Pixel.ttf') format('truetype');
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body{    
+    display: grid;    
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+[wm-flappy]{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-color: skyblue;
+    /* justify-content: center;    */
+    overflow: hidden; 
+}
+
+#points-counter{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-family: 'Pixel', sans-serif;
+    font-size: 3em;
+    color: white;
+    z-index: 1;
+}
+
+#bird {
+    position: absolute;        
+}
+
+[wm-obstacle] {
+    position: absolute;
+    background-image: linear-gradient(to right, green, lightgreen);    
+    border: solid 1px #222222;
+    box-sizing: border-box;
+}
+
+/* [wm-upper-pipe]{    
+    width: 100px;
+}
+
+[wm-bottom-pipe]{    
+    width: 100px;
+}
+
+[wm-upper-border]{
+    width: 120px;    
+}
+
+[wm-bottom-border]{
+    width: 120px;    
+} */
