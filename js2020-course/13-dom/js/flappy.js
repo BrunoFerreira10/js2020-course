@@ -1,25 +1,25 @@
 let main = document.querySelector('[wm-flappy]')
 let bird = document.createElement('img')
+let points = 0
+
 let gameOver = false;
 
-function pxToNumber(px){
-    return px.replace('px','') * 1;
-}
-
-bird.setPositionY = function (position){    
-    bird.style.top = `${position}px`
+function vxToNumber(vx){
+    let number = vx.replace('vh','')
+    number = number.replace('vw','')
+    return (number * 1)
 }
 
 bird.moveDown = function(step) {    
-    if(pxToNumber(bird.style.top) < innerHeight - 25 - step)
-        this.setPositionY(pxToNumber(bird.style.top) + step)    
+    if(vxToNumber(bird.style.top) < 100 - 2 - step)
+        this.style.top = `${vxToNumber(bird.style.top) + step}vh`
 }
 
 bird.moveUp = function(step, stepTime, steps) {
     const move = (step, stepTime, steps) => {
-        if(pxToNumber(bird.style.top) > step)  
+        if(vxToNumber(bird.style.top) > step)  
             if(!gameOver)
-                this.setPositionY(pxToNumber(bird.style.top) - step)   
+            this.style.top = `${vxToNumber(bird.style.top) - step}vh`   
         if(steps > 0){
             setTimeout(() => move(step, stepTime, steps - 1),stepTime)
         }
@@ -29,7 +29,7 @@ bird.moveUp = function(step, stepTime, steps) {
 }
 
 document.onkeydown = event => {    
-    bird.moveUp(7,10,10)    
+    bird.moveUp(1,15,10)    
 }
 
 function generateObstacles(){
@@ -43,6 +43,7 @@ function generateObstacles(){
 
     upperPipe.setAttribute('wm-obstacle','')    
     upperPipe.setAttribute('wm-upper-pipe','')
+    upperPipe.setAttribute('cleared',false)
     
     bottomPipe.setAttribute('wm-obstacle','')    
     bottomPipe.setAttribute('wm-bottom-pipe','')
@@ -53,31 +54,33 @@ function generateObstacles(){
     bottomBorder.setAttribute('wm-obstacle','')    
     bottomBorder.setAttribute('wm-bottom-border','')
 
-    positionX = innerWidth - 50;
-    positionY = Math.random() * 0.7 + 0.3 
-    positionY = Math.round(positionY * innerHeight) - 50
+    positionX = 100;
+    positionY = Math.random() * 0.6 + 0.4 
+    positionY = Math.round(positionY * 100) - 20
     
-    upperPipe.style.top = `0px`    
-    upperPipe.style.height = `${positionY - 20 + 1}px`   
-    upperPipe.style.left = `${positionX+10}px`    
-    upperPipe.style.width = `100px` 
+    upperPipe.style.top = `0vh`    
+    upperPipe.style.height = `${positionY - 2}vh`   
+    upperPipe.style.left = `${positionX+0.5}vw`    
+    upperPipe.style.width = `5vw` 
     upperPipe.style.borderTop = 'none' 
+    upperPipe.style.borderBottom = 'none' 
 
-    upperBorder.style.top = `${positionY - 20}px`
-    upperBorder.style.height = `20px`
-    upperBorder.style.left = `${positionX}px`
-    upperBorder.style.width = `120px`
+    upperBorder.style.top = `${positionY - 2}vh`
+    upperBorder.style.height = `2vh`
+    upperBorder.style.left = `${positionX}vw`
+    upperBorder.style.width = `6vw`
     
-    bottomPipe.style.top = `${positionY + 100 + 20 - 1}px`    
-    bottomPipe.style.height = `${innerHeight - positionY - 100 - 20 + 1}px`    
-    bottomPipe.style.left = `${positionX+10}px`    
-    bottomPipe.style.width = `100px`
+    bottomPipe.style.top = `${positionY + 15 + 2}vh`    
+    bottomPipe.style.height = `${100 - positionY - 10 - 2}vh`    
+    bottomPipe.style.left = `${positionX+0.5}vw`    
+    bottomPipe.style.width = `5vw`
+    bottomPipe.style.borderTop = 'none'
     bottomPipe.style.borderBottom = 'none'
 
-    bottomBorder.style.top = `${positionY + 100}px`
-    bottomBorder.style.height = `20px`
-    bottomBorder.style.left = `${positionX}px`
-    bottomBorder.style.width = `120px`
+    bottomBorder.style.top = `${positionY + 15}vh`
+    bottomBorder.style.height = `2vh`
+    bottomBorder.style.left = `${positionX}vw`
+    bottomBorder.style.width = `6vw`
 
     main.appendChild(upperPipe)
     main.appendChild(bottomPipe)
@@ -88,11 +91,10 @@ function generateObstacles(){
 function moveObstacles(step){
     const obstacles = document.querySelectorAll('[wm-obstacle]')
     obstacles.forEach(obstacle => {
-        const positionX = obstacle.style.left.replace('px','') * 1;
-
-        obstacle.style.left = `${positionX - step}px`          
-
-        if(positionX < -200){
+        const positionX = vxToNumber(obstacle.style.left)
+        obstacle.style.left = `${positionX - step}vw`    
+        
+        if(positionX < -15){
             main.removeChild(obstacle)
         }
     })
@@ -101,17 +103,25 @@ function moveObstacles(step){
 function checkCrash(){
     let obstacles = document.querySelectorAll('[wm-upper-border]')
     obstacles.forEach(obstacle => {
-        if(pxToNumber(obstacle.style.left) < pxToNumber(bird.style.left) + 34.73 
-            && pxToNumber(obstacle.style.left) > pxToNumber(bird.style.left) - 120){                
-            if(pxToNumber(bird.style.top) <= pxToNumber(obstacle.style.top) + 20){
+        if(vxToNumber(obstacle.style.left) < vxToNumber(bird.style.left) + 2
+            && vxToNumber(obstacle.style.left) > vxToNumber(bird.style.left) - 6){                
+            if(vxToNumber(bird.style.top) <= vxToNumber(obstacle.style.top) + 2){
                 gameOver = true
-                //console.log('GameOver');                
             }
-            if(pxToNumber(bird.style.top) + 25 >= pxToNumber(obstacle.style.top) + 120){
+            if(vxToNumber(bird.style.top) + 2 >= vxToNumber(obstacle.style.top) + 17){
                 gameOver = true
-                //console.log('GameOver');
             }  
-        }             
+        }
+        
+        if(!obstacle.getAttribute('cleared'))
+            if(vxToNumber(obstacle.style.left) < vxToNumber(bird.style.left) - 12){
+                points++
+                obstacle.setAttribute('cleared', true)
+                document.querySelector('#points-counter').innerHTML = points
+            }
+
+
+
     })
     
 }
@@ -122,14 +132,15 @@ function mainLoop(){
     if(this.index > 1000)
         this.index = 1;
 
-    if(this.index % 5 == 0)        
-        bird.moveDown(5)  
+    if(this.index % 5 == 0){      
+        bird.moveDown(0.7)  
+    }    
         
     if(this.index % 500 == 0)
         generateObstacles()
 
     if(this.index % 5 == 0)
-        moveObstacles(5)  
+        moveObstacles(0.5)  
         
      checkCrash()   
     
@@ -137,9 +148,9 @@ function mainLoop(){
 
 bird.id = 'bird'
 bird.src = './imgs/passaro.png'
-bird.style.height = '25px'
-bird.style.left = `${Math.round(innerWidth / 2)}px`
-bird.setPositionY(Math.round(innerHeight * 0.7));
+bird.style.height = '2vh'
+bird.style.left = '50vw'
+bird.style.top = '50vh'
 
 main.style.position = 'relative'
 main.appendChild(bird)

@@ -6,27 +6,23 @@
 * {
     margin: 0px;
     padding: 0px;
+    box-sizing: border-box;
 }
 
 html {
-    height: 100%;
-    width: 100%;
+    height: 100%;    
 }
 
 body{    
     display: grid;    
     height: 100%;
-    width: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
 }
 
 [wm-flappy]{
     display: flex;
-    height: 100%;
-    width: 100%;
     background-color: skyblue;
-    /* justify-content: center;    */
     overflow: hidden; 
 }
 
@@ -47,22 +43,5 @@ body{
 [wm-obstacle] {
     position: absolute;
     background-image: linear-gradient(to right, green, lightgreen);    
-    border: solid 1px #222222;
-    box-sizing: border-box;
+    border: solid 1px #222222;    
 }
-
-/* [wm-upper-pipe]{    
-    width: 100px;
-}
-
-[wm-bottom-pipe]{    
-    width: 100px;
-}
-
-[wm-upper-border]{
-    width: 120px;    
-}
-
-[wm-bottom-border]{
-    width: 120px;    
-} */
