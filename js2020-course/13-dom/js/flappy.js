@@ -1,161 +1,157 @@
-let main = document.querySelector('[wm-flappy]')
-let bird = document.createElement('img')
-let points = 0
-
-let gameOver = false;
-
-function vxToNumber(vx){
-    let number = vx.replace('vh','')
-    number = number.replace('vw','')
-    return (number * 1)
+function newElement(tagName, className) {
+    const element = document.createElement(tagName)
+    element.className = className
+    return element
 }
 
-bird.moveDown = function(step) {    
-    if(vxToNumber(bird.style.top) < 100 - 2 - step)
-        this.style.top = `${vxToNumber(bird.style.top) + step}vh`
+function Barrier(reverse = false) {
+    this.element = newElement('div', 'barrier')
+
+    const border = newElement('div', 'border')
+    const body = newElement('div', 'body')
+    this.element.appendChild(reverse ? body : border)
+    this.element.appendChild(reverse ? border : body)
+
+    this.setHeight = height => body.style.height = `${height}px`
 }
 
-bird.moveUp = function(step, stepTime, steps) {
-    const move = (step, stepTime, steps) => {
-        if(vxToNumber(bird.style.top) > step)  
-            if(!gameOver)
-            this.style.top = `${vxToNumber(bird.style.top) - step}vh`   
-        if(steps > 0){
-            setTimeout(() => move(step, stepTime, steps - 1),stepTime)
-        }
+function BarrierPair(height, open, x) {
+    this.element = newElement('div', 'barrier-pair')
+
+    this.top = new Barrier(true)
+    this.bottom = new Barrier(false)
+
+    this.element.appendChild(this.top.element)
+    this.element.appendChild(this.bottom.element)
+
+    this.ramdomOpen = () => {
+        const topHeight = Math.random() * (height - open)
+        const bottomHeight = height - open - topHeight
+        this.top.setHeight(topHeight)
+        this.bottom.setHeight(bottomHeight)
     }
-    
-    move(step, stepTime, steps -1)
+
+    this.getX = () => parseInt(this.element.style.left.split('px')[0])
+    this.setX = x => this.element.style.left = `${x}px`
+    this.getWidth = () => this.element.clientWidth
+
+    this.ramdomOpen()
+    this.setX(x)
 }
 
-document.onkeydown = event => {    
-    bird.moveUp(1,15,10)    
-}
+function Barriers(height, width, open, distance, notifyPoint) {
+    this.pairs = [
+        new BarrierPair(height, open, width),
+        new BarrierPair(height, open, width + distance),
+        new BarrierPair(height, open, width + distance * 2),
+        new BarrierPair(height, open, width + distance * 3)
+    ]
 
-function generateObstacles(){
-    
-    let positionX = 0;
-    let positionY = 0;
-    let upperPipe  = document.createElement('div')
-    let bottomPipe  = document.createElement('div')
-    let upperBorder  = document.createElement('div')
-    let bottomBorder  = document.createElement('div')
+    const step = 3;
+    this.move = () => {
+        this.pairs.forEach(pair => {
+            pair.setX(pair.getX() - step)
 
-    upperPipe.setAttribute('wm-obstacle','')    
-    upperPipe.setAttribute('wm-upper-pipe','')
-    upperPipe.setAttribute('cleared',false)
-    
-    bottomPipe.setAttribute('wm-obstacle','')    
-    bottomPipe.setAttribute('wm-bottom-pipe','')
-
-    upperBorder.setAttribute('wm-obstacle','')    
-    upperBorder.setAttribute('wm-upper-border','')
-
-    bottomBorder.setAttribute('wm-obstacle','')    
-    bottomBorder.setAttribute('wm-bottom-border','')
-
-    positionX = 100;
-    positionY = Math.random() * 0.6 + 0.4 
-    positionY = Math.round(positionY * 100) - 20
-    
-    upperPipe.style.top = `0vh`    
-    upperPipe.style.height = `${positionY - 2}vh`   
-    upperPipe.style.left = `${positionX+0.5}vw`    
-    upperPipe.style.width = `5vw` 
-    upperPipe.style.borderTop = 'none' 
-    upperPipe.style.borderBottom = 'none' 
-
-    upperBorder.style.top = `${positionY - 2}vh`
-    upperBorder.style.height = `2vh`
-    upperBorder.style.left = `${positionX}vw`
-    upperBorder.style.width = `6vw`
-    
-    bottomPipe.style.top = `${positionY + 15 + 2}vh`    
-    bottomPipe.style.height = `${100 - positionY - 10 - 2}vh`    
-    bottomPipe.style.left = `${positionX+0.5}vw`    
-    bottomPipe.style.width = `5vw`
-    bottomPipe.style.borderTop = 'none'
-    bottomPipe.style.borderBottom = 'none'
-
-    bottomBorder.style.top = `${positionY + 15}vh`
-    bottomBorder.style.height = `2vh`
-    bottomBorder.style.left = `${positionX}vw`
-    bottomBorder.style.width = `6vw`
-
-    main.appendChild(upperPipe)
-    main.appendChild(bottomPipe)
-    main.appendChild(upperBorder)
-    main.appendChild(bottomBorder)
-}
-
-function moveObstacles(step){
-    const obstacles = document.querySelectorAll('[wm-obstacle]')
-    obstacles.forEach(obstacle => {
-        const positionX = vxToNumber(obstacle.style.left)
-        obstacle.style.left = `${positionX - step}vw`    
-        
-        if(positionX < -15){
-            main.removeChild(obstacle)
-        }
-    })
-}
-
-function checkCrash(){
-    let obstacles = document.querySelectorAll('[wm-upper-border]')
-    obstacles.forEach(obstacle => {
-        if(vxToNumber(obstacle.style.left) < vxToNumber(bird.style.left) + 2
-            && vxToNumber(obstacle.style.left) > vxToNumber(bird.style.left) - 6){                
-            if(vxToNumber(bird.style.top) <= vxToNumber(obstacle.style.top) + 2){
-                gameOver = true
-            }
-            if(vxToNumber(bird.style.top) + 2 >= vxToNumber(obstacle.style.top) + 17){
-                gameOver = true
-            }  
-        }
-        
-        if(!obstacle.getAttribute('cleared'))
-            if(vxToNumber(obstacle.style.left) < vxToNumber(bird.style.left) - 12){
-                points++
-                obstacle.setAttribute('cleared', true)
-                document.querySelector('#points-counter').innerHTML = points
+            // When element leaves the game area
+            if(pair.getX() < -pair.getWidth()) {
+                pair.setX(pair.getX() + distance * this.pairs.length)
+                pair.ramdomOpen()
             }
 
+            const half = width / 2
+            const halfCrossed = pair.getX() + step >= half && pair.getX() < half
 
+            halfCrossed && notifyPoint()
+        })
+    }
+}
 
+function Bird(gameHeight) {
+    let flying = false
+
+    this.element = newElement('img', 'bird')
+    this.element.src = 'imgs/passaro.png'
+
+    this.getY = () => parseInt(this.element.style.bottom.split('px')[0])
+    this.setY = y => this.element.style.bottom = `${y}px`
+
+    window.onkeydown = event => flying = true
+    window.onkeyup = event => flying = false
+
+    this.move = () => {
+        // debugger
+        const newY = this.getY() + (flying ? 8 : -5)
+        const maxHeight = gameHeight - this.element.clientHeight
+
+        if(newY <= 0){
+            this.setY(0)
+        } else if (newY >= maxHeight) {
+            this.setY(maxHeight)
+        } else {
+            this.setY(newY)
+        }              
+    }
+    this.setY(gameHeight / 2)  
+}
+
+function Progress() {
+    this.element = newElement('span','progress')
+    this.updatePoints = points => {
+        this.element.innerHTML = points
+    }
+    this.updatePoints(0)
+}
+
+function isOverlap(elementA, elementB){
+    const a = elementA.getBoundingClientRect()
+    const b = elementB.getBoundingClientRect()
+
+    const horizontal = a.left + a.width >= b.left && b.left + b.width >= a.left
+    const vertical = a.top + a.height >= b.top && b.top + b.height >= a.top
+    return horizontal && vertical
+}
+
+function checkColision(bird, barriers){
+    let collision = false
+
+    barriers.pairs.forEach(pair => {
+        if(!collision) {
+            const top = pair.top.element
+            const bottom = pair.bottom.element
+            collision = isOverlap(bird.element, top) || isOverlap(bird.element, bottom)
+        }
     })
-    
+    return collision
 }
 
-function mainLoop(){    
-    this.index++ || (this.index = 1)
+function FlappyBird() {
+    let points = 0
 
-    if(this.index > 1000)
-        this.index = 1;
+    const gameArea = document.querySelector('[wm-flappy]')
+    const height = gameArea.clientHeight
+    const width = gameArea.clientWidth
 
-    if(this.index % 5 == 0){      
-        bird.moveDown(0.7)  
-    }    
-        
-    if(this.index % 500 == 0)
-        generateObstacles()
+    const progress = new Progress()
+    const barriers = new Barriers(height, width, 200, 400, () => progress.updatePoints(++points))
+    const bird = new Bird(height)
 
-    if(this.index % 5 == 0)
-        moveObstacles(0.5)  
-        
-     checkCrash()   
-    
+    gameArea.appendChild(progress.element)
+    gameArea.appendChild(bird.element)
+    barriers.pairs.forEach(pair => gameArea.appendChild(pair.element))
+
+    this.start = () => {
+        const timer = setInterval(() => {
+            barriers.move()
+            bird.move()
+
+            if(checkColision(bird, barriers)){
+                clearInterval(timer)
+            }
+
+        },20)
+    }
 }
 
-bird.id = 'bird'
-bird.src = './imgs/passaro.png'
-bird.style.height = '2vh'
-bird.style.left = '50vw'
-bird.style.top = '50vh'
+new FlappyBird().start()
 
-main.style.position = 'relative'
-main.appendChild(bird)
 
-setInterval(() => {
-    if(!gameOver)
-        mainLoop()
-}, 1)
