@@ -19,9 +19,46 @@
 
 <body class="conteudo exercicio">
     <input type="file" name="arquivo" />
+    
     <div class="progresso"></div>
 
     <script>
-        // ...
+        function ajaxUpload(config){
+            const xhr = new XMLHttpRequest()
+
+            if (xhr.upload) {
+                xhr.upload.onprogress = e => {
+                    const actual = e.loaded;
+                    const total = e.total
+                    const percent = Math.floor(actual / total * 100)
+                    config.progress({actual, total, percent})
+                }
+            }
+
+            xhr.open("post", config.url, true)            
+            xhr.send(config.formData)
+        }
+
+        document.querySelector('input[type=file]').onchange = e => {
+            const formData = new FormData()
+            const inputFile = e.target
+            formData.append(inputFile.name, inputFile.files[0])
+
+            ajaxUpload({
+                url: "upload",
+                formData: formData,
+                progress(data) {
+                    const progress = document.querySelector('.progresso')
+                    progress.innerHTML = JSON.stringify(data)
+                }
+            })
+        }
     </script>
 </body>
+
+<!-- 
+    Brother da uma olhada na Rocketseat, eles tem um canal no youtube, ele manja 
+    muito de express, mas caso queira aprender legal mesmo o node e suas 
+    requisições, ve o curso de node desse cara aqui  no youtube mesmo Victor Lima
+     - Guia do Programador
+ -->
