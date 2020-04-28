@@ -35,5 +35,15 @@ app.post('/formulario', (req,res) => {
     })
 })
 
+app.get('/evenOrOdd', (req, res) => {
+    // req.body
+    // req.query
+    // req.params
+    const par = parseInt(req.query.number) % 2 === 0
+    res.send({
+        resultado: par ? 'even' : 'odd'
+    })
+})
+
 
 app.listen(8080, () => console.log('Running...'))

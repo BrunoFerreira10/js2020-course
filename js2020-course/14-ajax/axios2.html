@@ -14,6 +14,34 @@
     <div id="post"></div>
 
     <script>
-        // ...
+        function showResult(id, data) {
+            const text = JSON.stringify(data)
+            document.getElementById(id).innerHTML = text
+        }
+
+        
+        /* axios.get('evenOrOdd', {
+            params: {
+                number: 5
+            }
+        }).then(resp => showResult('get', resp.data)) */
+        
+        // or
+
+        // axios('evenOrOdd?number=6').then(resp => showResult('get', resp.data))    
+
+        // or
+
+        const evenOrOdd = async () => {
+            const resp = await axios('evenOrOdd?number=9')
+            showResult('get', resp.data)
+        }
+       evenOrOdd()
+        
+        axios.post('formulario', {
+            nome: 'João',
+            sobrenome: 'Silva'
+        }).then(resp => showResult('post', resp.data))    
+        
     </script>
 </body>
