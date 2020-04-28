@@ -25,6 +25,33 @@
     </nav>
     <div class="pagina"></div>
     <script>
-        // ...
+        function browseViaAjax(url, selector, push = true) {
+            const element = document.querySelector(selector)
+            fetch(url)
+                .then(resp => resp.text())
+                .then(html => {
+                    element.innerHTML = html
+                    if(push){
+                        history.pushState({selector}, "Ajax SPA", url)
+                    }
+                })
+        }
+
+        document.querySelectorAll('[wm-link]').forEach(link => {
+            const url = link.attributes['wm-link'].value
+            const selectorTarget = link.attributes['wm-destino'].value
+            link.onclick = e => {
+                e.preventDefault()
+                browseViaAjax(url, selectorTarget)
+            }
+        })
+
+        window.onpopstate = e => {
+            if(e.state) {
+                browseViaAjax(window.location.href, e.state.selector, false)
+            }
+        }
+
+
     </script>
 </body>
