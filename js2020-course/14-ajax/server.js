@@ -20,11 +20,11 @@ const storage = multer.diskStorage({
 const upload = multer({storage}).single('arquivo')
 
 app.post('/upload', function (req, res) {
-    upload(req, res, function(err) {
+    upload(req, res, function(err) {        
         if(err) {
             return res.end('An error occurred.')
-        }
-        res.end('Successfully finished.')
+        }        
+        return res.end('Successfully finished.')
     })
 })
 

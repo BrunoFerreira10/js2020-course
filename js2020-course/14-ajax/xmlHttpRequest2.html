@@ -33,6 +33,10 @@
                     const percent = Math.floor(actual / total * 100)
                     config.progress({actual, total, percent})
                 }
+                xhr.upload.onloadend = e => {
+                    const cabo = "cabo..."
+                    config.progress({cabo})
+                }
             }
 
             xhr.open("post", config.url, true)            
@@ -61,4 +65,7 @@
     muito de express, mas caso queira aprender legal mesmo o node e suas 
     requisições, ve o curso de node desse cara aqui  no youtube mesmo Victor Lima
      - Guia do Programador
+     https://developer.mozilla.org/pt-BR/docs/Web/API/XMLHTTPRequest
  -->
+
+ 
