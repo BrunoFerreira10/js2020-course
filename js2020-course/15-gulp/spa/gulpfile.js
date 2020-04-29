@@ -7,7 +7,7 @@ const {monitorFiles, server} = require('./gulpTasks/server')
 
 module.exports.default = series (
     parallel (
-        series(appHTML, appCSS, appJS, appHTML),
+        series(appHTML, appCSS, appJS, appIMG),
         series(depsCSS, depsFonts)
     ),
     server,
