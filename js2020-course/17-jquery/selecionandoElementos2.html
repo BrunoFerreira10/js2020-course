@@ -81,6 +81,32 @@
         <p>Cod3r Ensino</p>
     </footer>
     <script>
-        // ...
+        const withBorder = {'border': 'solid 8px orange'}
+        const withoutBorder = {'border': 'none'}
+
+        $('a[href="#link3"]').parent().css(withBorder).css(withoutBorder)
+        $('li:last').prev().css(withBorder).css(withoutBorder)
+        $('a[href="#link3"]').parent().next().css(withBorder).css(withoutBorder)
+        $('a[href="#link1"]').parents().css(withBorder).css(withoutBorder)
+        $('a[href="#link1"]').parentsUntil($('body')).css(withBorder).css(withoutBorder)
+        $('main').children().css(withBorder).css(withoutBorder)
+        $('body').find('a').css(withBorder).css(withoutBorder)
+
+
+        const domElement = document.getElementsByClassName('menu')
+        $(domElement).css(withBorder).css(withoutBorder)
+
+        $('main').children().each((index, domElement) => $(domElement).css(withBorder).css(withoutBorder))
+        $('li').each((index, domElement) => {
+            $(domElement).css(withBorder).css(withoutBorder)
+        })
+
+
+
+
+
+
+
+        
     </script>
 </body>
