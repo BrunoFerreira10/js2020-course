@@ -21,11 +21,36 @@
 <body class='conteudo exercicio'>
     <h1>Eventos #03</h1>
     <div id='div1'>1</div>
-    <div id='div2'>1</div>
+    <div id='div2'>2</div>
     <input id='input1' type='text' placeholder='Digite Algo!'>
     <span id='resultado'></span>
 
     <script>
-        // ...
+        function showEventData(event) {
+            $('#resultado').empty()
+            const div1 = $('<div>')
+            const div2 = $('<div>')
+
+            $('#resultado').append(div1, div2)
+            div1.append(`target: ${event.target.id}`)
+            const relatedTarget = event.relatedTarget ? event.relatedTarget.tagName : null
+            
+            div1.append(`<br>relatedTarget: ${relatedTarget}`)
+            div1.append(`<br>type: ${event.type}`)
+            div1.append(`<br>which: ${event.which}`)
+            div1.append(`<br>metaKey: ${event.metaKey}`)
+
+            div2.append(`pageX: ${event.pageX}`)
+            div2.append(`<br>pageY: ${event.pageY}`)
+            div2.append(`<br>clientX: ${event.clientX}`)
+            div2.append(`<br>clientY: ${event.clientY}`)
+
+            const obs = event.data ? event.data.obs : null
+            div2.append(`<br>obs: ${obs}`)
+        
+        }
+
+        $('#div1, #div2').on('mouseenter mouseleave', {obs: 'Its works!'}, showEventData)
+        $('input').keyup(showEventData)
     </script>
 </body>
