@@ -22,7 +22,44 @@
 <body class='conteudo exercicio'>
     <h1>Manipulando Atributos</h1>
     <div wm-relogio='1000'></div>
+    <div wm-relogio='5000'></div>
     <script>
-        // ...
+        function Clock(element) {
+            const correctTime = $('<p>')
+            const buttonMinus = $('<button>').html('-')
+            const buttonPlus = $('<button>').html('+')
+
+            const $element = $(element)
+            $element.append(correctTime, buttonMinus, buttonPlus)
+
+            const getActualInterval = () => parseInt($element.attr('wm-relogio'))
+
+            let timer = null
+            const start = () => {
+                if(timer) 
+                    clearInterval(timer)
+
+                timer = setInterval(() => {
+                    correctTime.html(new Date().toLocaleString('pt-BR'))
+                }, getActualInterval())                
+            }
+
+            const changeInterval = delta => {
+                const newInterval = Math.max(getActualInterval() + delta, 1000)
+                $element.attr('wm-relogio', newInterval)
+                start()
+            }
+
+            buttonMinus.click(e => changeInterval(1000))
+            buttonPlus.click(e => changeInterval(-1000))
+            start()
+        }
+
+        $('[wm-relogio]').each((index, element) => new Clock(element))
+
+        // Other examples
+        $('[wm-relogio]').attr({ops: 1, new: true})
+        $('[wm-relogio]').removeAttr('ops').removeAttr('new')
+
     </script>
 </body>
