@@ -29,33 +29,49 @@
 
     <script>
 
-        function changeWidth(value, duration, callback) {
-            $('div').animate({width: `+=${value}`}, duration, callback)
+        function changeWidth(value, duration) {
+            return new Promise((resolve, reject) => {
+                try {
+                    $('div').animate({ width: `+=${value}` }, duration)
+                    resolve(this)
+                } catch (error) {
+                    reject(error)
+                }
+            })
         }
 
         function moveDiagonal(value, duration, callback) {
-            $('div').animate({top: `+=${value}`, left: `+=${value}`}, duration, callback)
-        }
-
-        function rotate(value, duration, callback) {
-            $('div').animate({transform: `+=${value}`}, {
-                step: function(value) {
-                    $(this).css('transform', `rotate(${value}deg`)
-                }, 
-                duration: duration
-            }, 
-            'linear',
-            callback)
-        }
-
-        changeWidth(300,100, () => {
-            changeWidth(-300, 'slow',() => {
-                moveDiagonal(300,600, () => {
-                    rotate(3300,3000)
-                })
+            return new Promise((resolve, reject) => {
+                try {
+                    $('div').animate({ top: `+=${value}`, left: `+=${value}` }, duration)
+                    resolve(this)
+                } catch (error) {
+                    reject(error)
+                }
             })
-        })
+        }
 
+        function rotate(value, duration) {
+            return new Promise((resolve, reject) => {
+                try {
+                    $('div').animate({ transform: `+=${value}` }, {
+                        step: function (value) {
+                            $(this).css('transform', `rotate(${value}deg`)
+                        },
+                        duration: duration
+                    },
+                        'linear')
+                    resolve(this)
+                } catch (error) {
+                    reject(error)
+                }
+            })
+        }
+
+        changeWidth(300,100)
+            .then(changeWidth(-300,'slow'))
+            .then(moveDiagonal(300,600))
+            .then(rotate(3300,3000))
 
     </script>
 </body>
