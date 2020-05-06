@@ -22,6 +22,26 @@
     </div>
 
     <script>
-        // ...
+        // const $ = {name: 'Not is the jQuery!!'}
+
+        // To protect jQuery $
+        (function($) {
+            $.fn.interpret = function () {
+                const removeBrackets = s => s.substring(2, s.length - 2)
+                const contents = $(this).html()
+                const expressionsWithBrackets = contents.match(/\{\{.+\}\}/g)
+                const expressions = expressionsWithBrackets.map(removeBrackets)
+                const results = expressions.map(e => eval(e))
+
+                let finalContents = contents
+                for( let i = 0; i < expressionsWithBrackets.length; i++){
+                    finalContents = finalContents.replace(
+                        expressionsWithBrackets[i], results[i]
+                    )
+                }
+                $(this).html(finalContents)
+            }   
+        })(jQuery)
+        $('div').interpret()
     </script>
 </body>
