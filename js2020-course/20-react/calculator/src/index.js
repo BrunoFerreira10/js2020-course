@@ -5,10 +5,10 @@ import Calculator from './main/Calculator';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <h1>Calculator</h1>
     <Calculator />
-  </React.StrictMode>,
+  </div>,
   document.getElementById('root')
 );
 
