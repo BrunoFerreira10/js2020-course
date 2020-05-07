@@ -7,7 +7,12 @@ export default class Greeting extends Component {
         name: this.props.name
     }
 
-    // state = this.props ???
+    constructor(props) {
+        super(props)
+
+        this.setType = this.setType.bind(this)
+        this.setName = this.setName.bind(this)
+    }
 
     setType(e) {
         this.setState({type: e.target.value})
@@ -24,7 +29,7 @@ export default class Greeting extends Component {
                 <h1>{type} {name}!</h1>
                 <hr/>
                 <input type="text" placeholder="Type..." value={type}
-                    onChange={e => this.setType(e)}/>
+                    onChange={this.setType}/>
                 <input type="text" placeholder="Name..." value={name}
                     onChange={e => this.setName(e)}/>
             </div>
