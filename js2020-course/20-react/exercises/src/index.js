@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Greeeting from './components/Greeting'
+import Parent from './components/Parent'
  
 ReactDOM.render(
     <React.Fragment>
-        <Greeeting type="Good morning" name="João"/>        
+        <Parent name="Paulo" surname="Silva"/>        
     </React.Fragment>
 , document.getElementById('root'))
 
