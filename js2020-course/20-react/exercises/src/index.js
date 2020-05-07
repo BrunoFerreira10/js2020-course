@@ -1,14 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import GoodMorning from './components/GoodMorning'
-import Multi, {GoodNigth} from './components/Multiples'
+import Greeeting from './components/Greeting'
  
 ReactDOM.render(
     <React.Fragment>
-        <GoodMorning name="Guilherme"/>
-        <Multi.GoodAfternoon name="Ana"/>
-        <GoodNigth name="Bia"/>
+        <Greeeting type="Good morning" name="João"/>        
     </React.Fragment>
 , document.getElementById('root'))
 
