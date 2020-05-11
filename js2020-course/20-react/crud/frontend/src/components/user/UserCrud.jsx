@@ -1,4 +1,5 @@
 import React from 'react'
+import './UserCrud.css'
 import Main from '../templates/Main'
 import { Component } from 'react'
 
@@ -127,7 +128,7 @@ export default class UserCrud extends Component {
                     <td>{user.id}</td>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
-                    <td>
+                    <td className="button-field">
                         <button className="btn btn-warning" onClick={() => this.load(user)}>
                             <i className="fa fa-pencil"></i>
                         </button>
