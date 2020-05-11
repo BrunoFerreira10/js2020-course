@@ -8,8 +8,34 @@
 </head>
 <body class="exercicio">
 
+    <div id="app">
+        <p v-for="(student, i) in students">
+            {{i+1}}) {{student.name}} - {{student.grade}}
+            <span v-if="student.grade >= 9">Honor board</span>
+            <span v-else-if="student.grade >= 7">Approved</span>
+            <span v-else-if="student.grade >= 3">Retrieval</span>
+            <span v-else>Disapproved</span>
+        </p>
+        <ul style="list-style:none;">
+            <li v-for="n in 4" >
+                <span v-show="n >= 3" >{{n}}) {{ students[n - 1] }}</span>
+            </li>
+        </ul>
+    </div>
+
     <script>
-        // ...
+        new Vue({
+            el: "#app",
+            data: {
+                students: [
+                    {name:"Ana", grade: 7.8},
+                    {name:"Bia", grade: 9.1},
+                    {name:"Carlos", grade: 6.8},
+                    {name:"Daniel", grade: 2.8}
+                ]
+            }         
+        })
     </script>
+
 </body>
 </html>
