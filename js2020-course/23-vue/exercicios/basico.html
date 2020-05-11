@@ -8,8 +8,33 @@
 </head>
 <body class="exercicio">
 
+    <div id="app">
+        <p>1) {{ 2 + 2 }}</p>
+        <p>2) {{ "test".toUpperCase() }}</p>
+        <p>3) Product: {{ name }}, R$ {{ price }}, {{ discount * 100 }}%</p>
+        <p>4) Now: {{ now() }}</p>
+        <p>5) Price with discount: R$ {{ priceWithDiscount.toFixed(2) }}</p>
+    </div>
+
     <script>
-        // ...
+        new Vue({
+            el:"#app",
+            data: {
+                name: 'Pen',
+                price: 6.89,
+                discount: 0.15
+            },
+            methods: {
+                now() {
+                    return new Date().toLocaleString()
+                }
+            },
+            computed: {
+                priceWithDiscount() {
+                    return this.price * (1 - this.discount)
+                }
+            }
+        })
     </script>
 </body>
 </html>
