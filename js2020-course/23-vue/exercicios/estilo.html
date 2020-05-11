@@ -13,8 +13,17 @@
 </head>
 <body class="exercicio">
 
+    <div id="app" @click="apllyColor = !apllyColor" :class="{'vermelho': apllyColor}">
+        Test
+    </div>
+
     <script>
-        // ...
+        new Vue({
+            el: "#app",
+            data: {
+                apllyColor: false
+            }
+        })
     </script>
 </body>
 </html>
