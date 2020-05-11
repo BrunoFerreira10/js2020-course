@@ -9,16 +9,30 @@
 <body class="exercicio">
 
     <div id="app">
-        <greeting name="Ana"></greeting>
-        <greeting name="Bia"></greeting>
-        <greeting name="Julia"></greeting>
+        <counter></counter>        
+        <counter></counter> 
+        <counter></counter> 
     </div>
 
     <script>
-        Vue.component('greeting', {
+        Vue.component('counter', {
             props: ['name'],
+            data: function() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                add() {
+                    this.counter++
+                }
+            },
             template: `
-                <div> Good morning {{ name }} </div>
+                <div> 
+                    <span> {{counter}} </span>
+                    <button @click="add">+1</button>
+                    <button @click="counter--">-1</button>
+                </div>
             `
         })
 
