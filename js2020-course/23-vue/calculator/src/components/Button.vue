@@ -26,7 +26,7 @@ export default {
     background-color: var(--bg-button);
     border-right: var(--border-button);
     border-bottom: var(--border-button);
-    outline: none;
+    outline: none;    
 }
 
 .button:active {
