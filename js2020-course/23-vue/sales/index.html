@@ -13,7 +13,31 @@
     <div id="app">
         <div class="container"></div>
         <h1 class="mt-3">{{ title }}</h1>
-        <table class="mt-3 table">
+
+        <table class="mt-5 table" v-if="salesByProduct">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(sale, index) in salesByProduct">
+                    <td>#{{index + 1}}</td>
+                    <td>{{sale.name}}</td>
+                    <td v-money="'R$'">{{sale.value}}</td>
+                </tr>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Total</td>
+                        <td v-money="'R$'">{{ calculateTotal(salesByProduct) }}</td>
+                    </tr>
+                </tfoot>
+            </tbody>
+        </table>
+
+        <!-- <table class="mt-3 table">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -32,7 +56,8 @@
                     <td>{{ sale.date }}</td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
+
     </div>
 
     <script>
@@ -57,13 +82,39 @@
                     fetch('/data/sales.json')
                         .then(resp => resp.json())
                         .then(data => this.sales = data)
+                },
+                calculateTotal(salesByProduct) {
+                    if(!salesByProduct)
+                        return 0
+                       
+                    return salesByProduct.reduce((total, sale) => total + sale.value, 0)
                 }
-            }, 
+            },
+            computed: {
+                salesByProduct() {
+                    if(!this.sales) 
+                        return null
+                    
+                    const salesByProduct = this.sales.reduce((grouped, sale) => {
+                        if(!grouped.hasOwnProperty(sale.name)){
+                            grouped[sale.name] = {
+                                name: sale.name,
+                                value: sale.price * sale.qtde
+                            } 
+                        } else {
+                            grouped[sale.name].value += sale.price * sale.qtde
+                        }
+                        return grouped
+                    }, {})
+
+                    return Object.values(salesByProduct)                                       
+                }
+            } ,
             mounted() {
                 this.getSales()
             }
         })
-        
+
     </script>
 </body>
 
