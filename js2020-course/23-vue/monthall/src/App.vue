@@ -13,12 +13,11 @@
                 v-model.number="selectedDoor">                
       </div>
       <button v-if="!started" @click="started = true">Start</button>
-      <button v-if="started" @click="started = false">Restart</button>
+      <button v-if="started" @click="started = false">Restart</button>      
     </div>
-    <div class="doors" v-if="started">
-      <div v-for="i in doorAmount" :key="i">
-        <Door :hasGift="i === selectedDoor" :number="i"></Door>
-      </div>
+    <div class="doors" ref="doors" v-if="started">
+        <Door  v-for="i in doorAmount" :key="i" :hasGift="i === selectedDoor" 
+                :number="i" @onSelect="clearSelection"></Door>      
     </div>
   </div>
 </template>
@@ -33,6 +32,13 @@ export default {
       started: false,
       doorAmount: 3,
       selectedDoor: null
+    }
+  }, methods: {
+    clearSelection(evt) {         
+      Array.from(this.$refs.doors.children).forEach(el => {
+          if(el.__vue__ !== evt)
+            el.__vue__.selected = false          
+      })
     }
   }
 }

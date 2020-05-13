@@ -3,7 +3,7 @@
       <div class="door-frame" :class="{ selected: selected && !open }">
           <Gift v-if="open && hasGift"/>
       </div>
-      <div class="door" @click="selected = !selected" :class="{ open }">
+      <div class="door" @click="onSelect()" :class="{ open }">
           <div class="number" :class="{ selected }">{{ number }}</div>
           <div class="knob" :class="{ selected }" @click.stop="open = true"></div>
       </div>
@@ -23,6 +23,13 @@ export default {
         return{
             open: false,
             selected: false
+        }
+    }, 
+    methods: {
+        onSelect() {
+            this.selected = !this.selected
+            if(this.selected)
+                this.$emit('onSelect', this)
         }
     }
 }
