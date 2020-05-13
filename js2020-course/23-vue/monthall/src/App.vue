@@ -1,11 +1,16 @@
 <template>
   <div id="app">
     <h1>Monty Hall Problem</h1>
+    <Gift></Gift>
   </div>
 </template>
 
 <script>
-export default {};
+import Gift from './components/Gift'
+export default {
+  name: 'App',
+  components: { Gift  }
+}
 </script>
 
 <style>
