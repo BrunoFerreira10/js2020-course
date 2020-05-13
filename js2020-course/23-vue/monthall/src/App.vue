@@ -1,15 +1,15 @@
 <template>
   <div id="app">
     <h1>Monty Hall Problem</h1>
-    <Gift></Gift>
+    <Door number="1" :hasGift="true"></Door>
   </div>
 </template>
 
 <script>
-import Gift from './components/Gift'
+import Door from './components/Door'
 export default {
   name: 'App',
-  components: { Gift  }
+  components: { Door  }
 }
 </script>
 
