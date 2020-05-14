@@ -11,27 +11,20 @@ import { Observable } from 'rxjs';
 })
 export class ProductCreateComponent implements OnInit {
 
-  // private req: Observable<Product>
-
-  private product: Product = {
+  product: Product = {
     name: '',
     price: null
   }
 
   constructor(private productService: ProductService, private router: Router) {
 
-   }
+  }
 
   ngOnInit(): void {
     
   }
 
   createProduct(): void {
-    
-    // Crazy test
-    // this.req = this.productService.create(this.product)
-    // this.req.subscribe(_ => this.productService.showMessage('Product created"'))
-    // this.req.subscribe(_ => this.router.navigate(['/products']))
     
     this.productService.create(this.product).subscribe(() =>  {
       this.productService.showMessage('Product created"')
@@ -43,4 +36,6 @@ export class ProductCreateComponent implements OnInit {
   cancel(): void {
     this.router.navigate(['/products'])
   }
+
+  
 }

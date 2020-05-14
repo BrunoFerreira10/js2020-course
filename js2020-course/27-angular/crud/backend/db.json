@@ -24,6 +24,11 @@
       "name": "Notebook",
       "price": 2500,
       "id": 5
+    },
+    {
+      "name": "Coisa",
+      "price": "10.00",
+      "id": 6
     }
   ]
 }
