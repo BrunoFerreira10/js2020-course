@@ -7,15 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductCreateComponent implements OnInit {
 
-  coolAttribute = "Cool"
-
   constructor() { }
 
   ngOnInit(): void {
   }
-
-  doSomething(): void {
-    console.log('Doing something!')
-  }
-
 }
