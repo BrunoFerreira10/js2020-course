@@ -19,6 +19,11 @@
       "name": "Freezer",
       "price": "19013.99",
       "id": 4
+    },
+    {
+      "name": "Notebook",
+      "price": 2500,
+      "id": 5
     }
   ]
 }
