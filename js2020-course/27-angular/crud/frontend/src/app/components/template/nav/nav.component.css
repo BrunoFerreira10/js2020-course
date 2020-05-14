@@ -1,5 +1,5 @@
 .sidenav {
-    background-color: #3f51b3;
+    background: linear-gradient(to bottom, #3f51b3dd, #3f51b3);
     width: 200px;    
 }
 
@@ -12,6 +12,10 @@
 }
 
 .content {
-    padding: 16px;
-    background-color: #FFF;
+    padding: 16px;    
+    background-color: #0000;    
+}
+
+.container {    
+    background-color: #0000;    
 }
