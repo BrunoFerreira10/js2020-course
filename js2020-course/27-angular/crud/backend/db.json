@@ -39,6 +39,11 @@
       "name": "Que coisa",
       "price": "1",
       "id": 8
+    },
+    {
+      "name": "Coisa esquisita",
+      "price": "1000",
+      "id": 9
     }
   ]
 }

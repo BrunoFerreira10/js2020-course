@@ -24,14 +24,15 @@ import { RedDirective } from './directives/red.directive';
 import { ProductCreateComponent } from './components/product/product-create/product-create.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { ProductListComponent } from './components/product/product-list/product-list.component';
-import { ProductListSchemaComponent } from './components/product/product-list-schema/product-list-schema.component';
+import { ProductReadComponent } from './components/product/product-read/product-read.component';
+import { ProductReadSchemaComponent } from './components/product/product-read-schema/product-read-schema.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort'
 
 import localePt from '@angular/common/locales/pt'
-import { registerLocaleData } from '@angular/common'
+import { registerLocaleData } from '@angular/common';
+import { ProductUpdateComponent } from './components/product/product-update/product-update.component'
 
 registerLocaleData(localePt)
 
@@ -45,8 +46,9 @@ registerLocaleData(localePt)
     ProductCrudComponent,
     RedDirective,
     ProductCreateComponent,
-    ProductListComponent,
-    ProductListSchemaComponent
+    ProductReadComponent,
+    ProductReadSchemaComponent,
+    ProductUpdateComponent
   ],
   imports: [
     BrowserModule,

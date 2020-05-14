@@ -2,20 +2,20 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { ProductListSchemaDataSource } from './product-list-schema-datasource';
+import { ProductReadSchemaDataSource } from './product-read-schema-datasource';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 
 @Component({
-  selector: 'app-product-list-schema',
-  templateUrl: './product-list-schema.component.html',
-  styleUrls: ['./product-list-schema.component.css']
+  selector: 'app-product-read-schema',
+  templateUrl: './product-read-schema.component.html',
+  styleUrls: ['./product-read-schema.component.css']
 })
-export class ProductListSchemaComponent implements AfterViewInit, OnInit {
+export class ProductReadSchemaComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<Product>;
-  dataSource: ProductListSchemaDataSource;
+  dataSource: ProductReadSchemaDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name', 'price'];
@@ -25,7 +25,7 @@ export class ProductListSchemaComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this.dataSource = new ProductListSchemaDataSource();    
+    this.dataSource = new ProductReadSchemaDataSource();    
     this.productService.readAll().subscribe(products => {
       this.dataSource.data = products                
     })

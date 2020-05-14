@@ -20,7 +20,7 @@ const EXAMPLE_DATA: Product[] = [];
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class ProductListSchemaDataSource extends DataSource<Product> {
+export class ProductReadSchemaDataSource extends DataSource<Product> {
   data: Product[] = EXAMPLE_DATA;  
   paginator: MatPaginator;
   sort: MatSort;
