@@ -15,8 +15,12 @@ export class ProductService {
               private http: HttpClient) { 
   }
 
-  create(product: Product): Observable<Product>{
+  create(product: Product): Observable<Product> {
     return this.http.post<Product>(this.baseUrl, product)
+  }
+
+  listAll(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.baseUrl)
   }
 
   showMessage(msg: string): void {
