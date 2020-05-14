@@ -26,7 +26,7 @@ export class ProductListSchemaComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.dataSource = new ProductListSchemaDataSource();    
-    this.productService.listAll().subscribe(products => {
+    this.productService.readAll().subscribe(products => {
       this.dataSource.data = products                
     })
   }
