@@ -5,4 +5,9 @@
     <mat-card-subtitle class="subtitle">
         System to exemplify an register construction in Angular
     </mat-card-subtitle>
+    <ul>
+        <li *myFor="let n em [1, 2, 3] using 'testando' com 'abacaxi'">
+            {{ n[0] }}) {{ n[1] }} macarena comendo {{ n[2] }}
+        </li>
+    </ul>
 </mat-card>
