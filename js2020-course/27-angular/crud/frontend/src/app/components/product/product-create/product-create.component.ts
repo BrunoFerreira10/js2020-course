@@ -11,9 +11,17 @@ import { Observable } from 'rxjs';
 })
 export class ProductCreateComponent implements OnInit {
 
-  product: Product = {
-    name: '',
+  private product: Product = {
+    name: 'aa',
     price: null
+  }
+
+  get _product():Product {
+    return this.product
+  }
+
+  set _product(product: Product){
+    this.product = product
   }
 
   constructor(private productService: ProductService, private router: Router) {

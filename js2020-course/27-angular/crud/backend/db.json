@@ -29,6 +29,11 @@
       "name": "Coisa",
       "price": "10.00",
       "id": 6
+    },
+    {
+      "name": "Outra coisa",
+      "price": "10",
+      "id": 7
     }
   ]
 }

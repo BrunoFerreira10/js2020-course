@@ -1,5 +1,5 @@
 export interface Product {
-    id?: number
+    privateid?: number
     name: string
     price: number
 }
