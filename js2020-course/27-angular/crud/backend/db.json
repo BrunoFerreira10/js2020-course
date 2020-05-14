@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "BIC Pen Black",
-      "price": 5.89
+      "price": "5000.89"
     },
     {
       "id": 2,
@@ -26,7 +26,7 @@
       "id": 5
     },
     {
-      "name": "Coisa",
+      "name": "Mosquito",
       "price": "10.00",
       "id": 6
     },
