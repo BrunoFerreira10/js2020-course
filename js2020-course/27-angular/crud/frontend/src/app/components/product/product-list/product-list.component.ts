@@ -10,6 +10,7 @@ import { ProductService } from '../product.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[]
+  displayedColumns = ['id', 'name', 'price']
 
   constructor(private productService: ProductService) {
 

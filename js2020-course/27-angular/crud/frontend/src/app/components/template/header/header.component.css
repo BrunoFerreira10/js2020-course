@@ -1,7 +1,6 @@
-.header {
+.header {    
     display: flex;
-    align-items: center;
-    z-index: 100;    
+    align-items: center;    
 }
 
 .header a {
