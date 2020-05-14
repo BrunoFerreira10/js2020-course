@@ -24,7 +24,11 @@ import { RedDirective } from './directives/red.directive';
 import { ProductCreateComponent } from './components/product/product-create/product-create.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { ProductListComponent } from './components/product/product-list/product-list.component'
+import { ProductListComponent } from './components/product/product-list/product-list.component';
+import { ProductListSchemaComponent } from './components/product/product-list-schema/product-list-schema.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort'
 
 @NgModule({
   declarations: [
@@ -36,7 +40,8 @@ import { ProductListComponent } from './components/product/product-list/product-
     ProductCrudComponent,
     RedDirective,
     ProductCreateComponent,
-    ProductListComponent
+    ProductListComponent,
+    ProductListSchemaComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +56,10 @@ import { ProductListComponent } from './components/product/product-list/product-
     HttpClientModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
