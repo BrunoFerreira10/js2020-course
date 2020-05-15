@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { HttpClient } from '@angular/common/http';
 import { Product } from './product.model';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class ProductService {
   private baseUrl: string = 'http://localhost:3001/products'
 
   constructor(private snackBar: MatSnackBar,
-              private http: HttpClient) { 
+              private http: HttpClient,
+              private router: Router) { 
   }
 
   create(product: Product): Observable<Product> {
@@ -37,14 +39,16 @@ export class ProductService {
     const url = `${this.baseUrl}/${id}`
     return this.http.delete<Product>(url)
   }
-
-  recoverById
-
+  
   showMessage(msg: string): void {
     this.snackBar.open(msg, 'X', {
       duration: 3000,
       horizontalPosition: "right",
       verticalPosition: "top"
     })
+  }
+
+  returnToList(){    
+    this.router.navigate(['/products'])
   }
 }
