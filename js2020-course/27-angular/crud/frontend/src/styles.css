@@ -7,6 +7,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: #e35e6b;
 }
 
+.zap-green {
+    color: #128C7E;
+}
+
 .v-middle {
     vertical-align: middle;
 }
