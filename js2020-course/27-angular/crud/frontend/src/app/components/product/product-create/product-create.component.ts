@@ -22,8 +22,7 @@ export class ProductCreateComponent implements OnInit {
     
   }
 
-  createProduct(): void {
-    
+  createProduct(): void {    
     this.productService.create(this.product).subscribe(() =>  {
       this.productService.returnToList()
       this.productService.showMessage('Product created"')      
