@@ -65,6 +65,10 @@ export class ProductService {
     })
   }
 
+  zapSend(){    
+    this.router.navigate(['https://api.whatsapp.com/send?phone=5512991945046&text=aloBom%20dia%0aTudo%20bem'])
+  }
+
   returnToList(){    
     this.router.navigate(['/products'])
   }
@@ -73,4 +77,6 @@ export class ProductService {
     this.showMessage('Some error has ocurred!', true)
       return EMPTY
   }
+
+  
 }

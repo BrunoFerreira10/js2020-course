@@ -2,7 +2,7 @@ table {
     width: 100%;    
 }
 
-.edit {
+.edit, .delete {
     margin-right: 10px;   
 }
 
