@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "wm",
+            "dialect": "MySQL",
+            "name": "wm",
+            "password": "1234567",
+            "port": 3306,
+            "server": "localhost",
+            "username": "developer"
+        }
+    ]
+}
