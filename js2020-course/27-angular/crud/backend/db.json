@@ -16,8 +16,8 @@
       "price": 5000.89
     },
     {
-      "name": "",
-      "price": null,
+      "name": "Teste",
+      "price": "500",
       "id": 4
     }
   ]
