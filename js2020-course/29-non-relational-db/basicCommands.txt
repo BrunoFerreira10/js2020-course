@@ -1,0 +1,7 @@
+cls
+show dbs
+use wm
+db.createCollection('states')
+show collections
+db.States.drop()
+db.states.drop()
