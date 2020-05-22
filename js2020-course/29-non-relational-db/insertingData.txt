@@ -1,0 +1,27 @@
+db.states.insert(
+    {
+        name: "Sao Paulo",
+        initials: "SP",
+        region: "Southeast",
+        cities: [
+            {
+                _id: 1,
+                name: "Campinas",
+                area: 795.7,
+                mayor: "Jonas Donizette",
+                population: 181000
+            },
+            {
+                _id: 2,
+                name: "Guarulhos",
+                population: 1325000
+            },
+            {
+                _id: ObjectId(),
+                name: "Sorocaba",
+                capitalDistance: 87,
+                population: 644919
+            }
+        ]
+    }
+)
