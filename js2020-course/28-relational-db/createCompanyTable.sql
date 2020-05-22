@@ -1,4 +1,4 @@
-create table if not exists mayors (
+create table if not exists company (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     cnpj int unsigned,
