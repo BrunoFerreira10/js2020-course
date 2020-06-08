@@ -1,0 +1,5 @@
+db.states.find().pretty()
+db.states.update({initials: "SP"}, {$set: {population: 45340000}})
+db.states.update({initials: "AL"}, {$set: {cities: [{name: "Sergipe"}]}})
+db.states.update({initials: "SP"}, {$push: {cities:{name: "Santos", population: 433966}}})
+db.states.find({population: {$exists: true}},{_id: 0, name: 1}).pretty()
