@@ -1,0 +1,5 @@
+db.states.find({},{_id: 0, name: 1}).pretty()
+db.states.remove({initials: "AC"})
+db.states.remove({population: {$exists: true}}, 1)
+db.states.update({initials: "RJ"}, {$set: {population: 16720000}})
+db.states.remove({population: {$lt: 20000000}})
