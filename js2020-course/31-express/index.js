@@ -10,6 +10,27 @@ app.use((res, req, next ) => {
     next()
 })
 
+// http://localhost:3000/clients/report/?complete=true&year=2020
+app.get('/clients/report', (req, res) => {
+    res.send(`Client report: Complete = ${req.query.complete}, Year = ${req.query.year}!`)
+})
+
+app.post('/body', (req, res) => {
+    let body = ''
+    req.on('data', function(part) {
+        body += part
+    })
+
+    req.on('end', function() {
+        res.send(body)
+    })
+})
+
+// http://localhost:3000/clients/10
+app.get('/clients/:id', (req, res) => {
+    res.send(`Client ${req.params.id} selected!`)
+})
+
 app.get('/opa', (req, res, proxima) => {
     console.log("While...")
     res.json({
