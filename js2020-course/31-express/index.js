@@ -2,27 +2,13 @@ const express = require('express')
 
 const app = express()
 
-/* app.get('/opa',(req, res) => {
-    res.send("I'm fine <b>too</b>!")
-}) */
+app.use((res, req, next ) => {
+    console.log("Before...")
+    next()
+})
 
-/* app.get('/opa',(req, res) => {
-    res.json({
-        name: 'iPad 32Gb',
-        price: 1899.00,
-        discount: 0.12
-    })
-}) */
-
-/* app.get('/opa',(req, res) => {
-    res.json([
-        {id: 7, name: 'Ana', position: 1},
-        {id: 34, name: 'Bia', position: 2},
-        {id: 73, name: 'Carlos', position: 3}
-    ])
-}) */
-
-app.get('/opa', (req, res) => {
+app.get('/opa', (req, res, proxima) => {
+    console.log("While...")
     res.json({
         data: [
             { id: 7, name: 'Ana', position: 1 },
@@ -33,8 +19,12 @@ app.get('/opa', (req, res) => {
         skip: 0,
         limit: 3,
         status: 200
-
     })
+    proxima()
+})
+
+app.use((req, res) => {
+    console.log("After...")    
 })
 
 app.listen(3000, () => {
