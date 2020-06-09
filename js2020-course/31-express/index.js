@@ -1,9 +1,18 @@
 const express = require('express')
+const app = express()
 const greeting = require('./greetingMiddleware')
 const bodyParser = require('body-parser')
 
 const userApi = require('./api/user')
-const app = express()
+//Method 1
+//require('./api/product')(app, 'com param!')
+
+// Method 2
+const productApi = require('./api/product')
+//productApi(app, 'com param 2!')
+
+app.post('/product', productApi(app,'com param 3').save)
+app.get('/product', productApi(app,'com param 3').get)
 
 app.post('/user', userApi.save)
 app.get('/user', userApi.get)
