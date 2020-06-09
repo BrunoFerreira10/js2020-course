@@ -2,7 +2,11 @@ const express = require('express')
 const greeting = require('./greetingMiddleware')
 const bodyParser = require('body-parser')
 
+const userApi = require('./api/user')
 const app = express()
+
+app.post('/user', userApi.save)
+app.get('/user', userApi.get)
 
 app.use(bodyParser.text())
 app.use(bodyParser.json())
