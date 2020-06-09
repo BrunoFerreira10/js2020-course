@@ -1,7 +1,12 @@
 const express = require('express')
 const greeting = require('./greetingMiddleware')
+const bodyParser = require('body-parser')
 
 const app = express()
+
+app.use(bodyParser.text())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(greeting('Joao'))
 
@@ -16,14 +21,15 @@ app.get('/clients/report', (req, res) => {
 })
 
 app.post('/body', (req, res) => {
-    let body = ''
+    /* let body = ''
     req.on('data', function(part) {
         body += part
     })
 
     req.on('end', function() {
         res.send(body)
-    })
+    }) */
+    res.send(JSON.stringify(req.body))
 })
 
 // http://localhost:3000/clients/10
