@@ -15,6 +15,8 @@ module.exports = app => {
         .post(app.api.user.save)
         .get(app.api.user.get)
 
-        app.route('/users/:id')
-            .put(app.api.user.save)            
+    app.route('/users/:id')
+        .put(app.api.user.save)
+        .get(app.api.user.get)
+                        
 }
