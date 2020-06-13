@@ -1,3 +1,4 @@
+const admin = require('./admin')
 
 /* Method not using consign
 const user = require('../api/user')
@@ -18,18 +19,18 @@ module.exports = app => {
 
     app.route('/users')
         .all(app.config.passport.authenticate())
-        .post(app.api.user.save)
-        .get(app.api.user.get)
+        .post(admin(app.api.user.save))
+        .get(admin(app.api.user.get))
 
     app.route('/users/:id')
         .all(app.config.passport.authenticate())
-        .put(app.api.user.save)
-        .get(app.api.user.get)
+        .put(admin(app.api.user.save))
+        .get(admin(app.api.user.get))
 
     app.route('/categories')
-    .all(app.config.passport.authenticate())
+        .all(app.config.passport.authenticate())
         .get(app.api.category.get)
-        .post(app.api.category.save)
+        .post(admin(app.api.category.save))
     
     // The order is important!!
     app.route('/categories/tree')
@@ -39,19 +40,19 @@ module.exports = app => {
     app.route('/categories/:id')
         .all(app.config.passport.authenticate())
         .get(app.api.category.getById)
-        .put(app.api.category.save)
-        .delete(app.api.category.remove)
+        .put(admin(app.api.category.save))
+        .delete(admin(app.api.category.remove))
 
     app.route('/articles')
         .all(app.config.passport.authenticate())
-        .get(app.api.article.get)
-        .post(app.api.article.save)        
+        .get(admin(app.api.article.get))
+        .post(admin(app.api.article.save))     
 
     app.route('/articles/:id')
         .all(app.config.passport.authenticate())
         .get(app.api.article.getById)    
-        .put(app.api.article.save)
-        .delete(app.api.article.remove)
+        .put(admin(app.api.article.save))
+        .delete(admin(app.api.article.remove))
 
     app.route('/categories/:id/articles')
         .all(app.config.passport.authenticate())
