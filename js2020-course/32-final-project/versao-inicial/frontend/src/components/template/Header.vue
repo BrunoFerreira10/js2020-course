@@ -32,6 +32,9 @@ export default {
     toggleMenu() {
       this.$store.commit('toggleMenu')
     }
+  },
+  mounted() {
+    this.$store.state.isMenuVisible = false
   }
 };
 </script>
