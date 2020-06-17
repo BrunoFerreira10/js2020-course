@@ -6,51 +6,85 @@
       <b-row>
         <b-col md="6" sm="12">
           <b-form-group label="Name:" label-for="user-name">
-            <b-form-input id="user-name" type="text" v-model="user.name" required placeholder="Enter user name...">              
-            </b-form-input>
+            <b-form-input
+              id="user-name"
+              type="text"
+              v-model="user.name"
+              :readonly="mode === 'remove'"
+              required
+              placeholder="Enter user name..."
+            ></b-form-input>
           </b-form-group>
         </b-col>
         <b-col md="6" sm="12">
           <b-form-group label="E-mail:" label-for="user-email">
-            <b-form-input id="user-email" type="text" v-model="user.email" required placeholder="Enter user E-mail...">              
-            </b-form-input>
+            <b-form-input
+              id="user-email"
+              type="text"
+              v-model="user.email"
+              :readonly="mode === 'remove'"
+              required
+              placeholder="Enter user E-mail..."
+            ></b-form-input>
           </b-form-group>
         </b-col>
       </b-row>
 
-      <b-form-checkbox id="user-admin" v-model="user.admin" class="mt-3 mb-3">
-        Administrator
-      </b-form-checkbox>
+      <b-form-checkbox
+        id="user-admin"
+        v-model="user.admin"
+        :disabled="mode === 'remove'"
+        class="mt-3 mb-3"
+      >Administrator</b-form-checkbox>
 
-      <b-row>
+      <b-row v-show="mode === 'save'">
         <b-col md="6" sm="12">
           <b-form-group label="Password:" label-for="user-password">
-            <b-form-input id="user-password" type="password" v-model="user.password" required placeholder="Enter user password...">              
-            </b-form-input>
+            <b-form-input
+              id="user-password"
+              type="password"
+              v-model="user.password"
+              required
+              placeholder="Enter user password..."
+            ></b-form-input>
           </b-form-group>
         </b-col>
         <b-col md="6" sm="12">
           <b-form-group label="Confirm password:" label-for="user-confirm-password">
-            <b-form-input id="user-confirm-password" type="password" v-model="user.confirmPassword" required placeholder="Confirm user password...">              
-            </b-form-input>
+            <b-form-input
+              id="user-confirm-password"
+              type="password"
+              v-model="user.confirmPassword"
+              required
+              placeholder="Confirm user password..."
+            ></b-form-input>
           </b-form-group>
         </b-col>
       </b-row>
-      
-      <b-button variant="primary" v-if="mode === 'save'" @click="save">
-        Save
-      </b-button>
-      <b-button variant="danger" v-if="mode === 'remove'" @click="remove">
-        Delete
-      </b-button>
-      <b-button class="ml-2" @click="reset">
-        Cancel
-      </b-button>
+
+      <b-row>
+        <b-col xs="12">
+          <b-button variant="primary" v-if="mode === 'save'" @click="save">Save</b-button>
+          <b-button variant="danger" v-if="mode === 'remove'" @click="remove">Delete</b-button>
+          <b-button class="ml-2" @click="reset">Cancel</b-button>
+        </b-col>
+      </b-row>
     </b-form>
 
-    <hr>
+    <hr />
 
-    <b-table hover striped :items="users" :fields="fields"></b-table>
+    <b-table hover striped :items="users" :fields="fields">
+      <template slot="actions" slot-scope="data">
+        <div class="actions-buttons">
+          <b-button class="mr-2" variant="warning" @click="loadUser(data.item)">
+            <i class="fa fa-pencil"></i>
+          </b-button>
+          <b-button variant="danger" @click="loadUser(data.item, 'remove')">
+            <i class="fa fa-trash"></i>
+          </b-button>
+        </div>
+      </template>
+    </b-table>
   </div>
 </template>
 
@@ -66,12 +100,12 @@ export default {
       user: {},
       users: [],
       fields: [
-        {key: 'id', label: 'Code', sortable: true },
-        {key: 'name', label: 'Name', sortable: true },
-        {key: 'email', label: 'E-mail', sortable: true },
-        {key: 'admin', label: 'Administrator', sortable: true , 
-          formatter: value => value ? 'Yes' : 'No'},
-        {key: 'action', label: 'Actions'}
+        { key: 'id', label: 'Code', sortable: true },
+        { key: 'name', label: 'Name', sortable: true },
+        { key: 'email', label: 'E-mail', sortable: true },
+        {          key: 'admin', label: 'Administrator', sortable: true,
+          formatter: value => value ? 'Yes' : 'No'        },
+        { key: 'actions', label: 'Actions' }
       ]
     }
   },
@@ -79,14 +113,14 @@ export default {
     loadUsers() {
       const url = `${baseApiUrl}/users`
       axios.get(url).then(res => {
-        this.users = res.data                
-      })      
+        this.users = res.data
+      })
     },
     reset() {
       this.mode = 'save'
       this.user = {},
-      this.loadUsers()
-    }, 
+        this.loadUsers()
+    },
     save() {
       const method = this.user.id ? 'put' : 'post'
       const id = this.user.id ? `/${this.user.id}` : ''
@@ -99,12 +133,16 @@ export default {
     },
     remove() {
       const id = this.user.id
-      axios.delete(`${baseApiUrl}/users${id}`)
-      .then(() => {
-        this.$toasted.global.defaultSuccess('Use deleted successfully...')
-        this.reset()
-      })
-      .catch(showError)
+      axios.delete(`${baseApiUrl}/users/${id}`)
+        .then(() => {
+          this.$toasted.global.defaultSuccess('Use deleted successfully...')
+          this.reset()
+        })
+        .catch(showError)
+    },
+    loadUser(user, mode = 'save') {
+      this.mode = mode
+      this.user = { ...user }
     }
   },
   mounted() {
@@ -114,4 +152,9 @@ export default {
 </script>
 
 <style>
+.actions-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>

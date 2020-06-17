@@ -30,6 +30,7 @@ module.exports = app => {
             const userFromDb = await app.db('users')
                                     .where({email: user.email}).first()
 
+            // TOREFACT            
             if(!user.id){
                 notExistsOrError(userFromDb, 'User already registred.')
             }            
