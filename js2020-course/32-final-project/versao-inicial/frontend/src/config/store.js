@@ -18,7 +18,6 @@ export default new Vuex.Store({
       } else {
         state.isMenuVisible = isVisible
       }
-      console.log(state.isMenuVisible)
     }    
   }
 })
