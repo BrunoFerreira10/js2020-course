@@ -1,7 +1,9 @@
+const queries = require('./queries')
+
 module.exports = app => {
     const { existsOrError, notExistsOrError } = app.api.validation
 
-    const save = (req, res) => {
+    const save = async (req, res) => {
         const category = { ...req.body }
 
         //if(req.params.id)
@@ -13,7 +15,16 @@ module.exports = app => {
             existsOrError(category.name, "Name not provided.")
         } catch (msg) {
             return res.status(400).send(msg)
-        }
+        }       
+        
+        if(category.id){
+            const categories = await app.db.raw(queries.categoryWithChildren, category.id)
+            const ids = categories.rows.map(c => c.id)
+            
+            if(ids.includes(category.parentId)){
+                return res.status(400).send("Cannot move to a subcategory.")
+            }            
+        }        
 
         if (category.id) {
             app.db('categories')
