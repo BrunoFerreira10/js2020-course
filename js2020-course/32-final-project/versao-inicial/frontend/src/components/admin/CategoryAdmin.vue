@@ -4,34 +4,36 @@
       <input type="hidden" id="category-id" v-model="modelItem.id" />
 
       <b-row>
-        <b-col xs="12">
-          <label for="category-name">Name</label>
-          <b-form-input
-            class="mb-3"
-            :readonly="mode === 'remove'"
-            id="category-name"
-            type="text"
-            v-model="modelItem.name"
-          ></b-form-input>
+        <b-col xs="12">          
+          <b-form-group label="Name" label-for="category-name">
+            <b-form-input
+              class="mb-3"
+              :readonly="mode === 'remove'"
+              id="category-name"
+              type="text"
+              v-model="modelItem.name" required
+            ></b-form-input>
+          </b-form-group>
         </b-col>
       </b-row>
 
       <b-row>
         <b-col xs="12">
-          <label for="category-parent">Category parent</label>
-          <b-form-select v-if="mode === 'save'"
-            id="category-parent"
-            class="mb-3"
-            v-model="modelItem.parentId"
-            :options="categorieOptions"            
-          ></b-form-select>
-          <b-form-input v-else
-            class="mb-3"
-            :readonly="mode === 'remove'"
-            id="category-parent"
-            type="text"
-            v-model="modelItem.path"
-          ></b-form-input>
+          <b-form-group label="Category parent" label-for="category-parent">
+            <b-form-select v-if="mode === 'save'"
+              id="category-parent"
+              class="mb-3"
+              v-model="modelItem.parentId"
+              :options="categorieOptions"            
+            ></b-form-select>
+            <b-form-input v-else
+              class="mb-3"
+              :readonly="mode === 'remove'"
+              id="category-parent"
+              type="text"
+              v-model="modelItem.path"
+            ></b-form-input>
+          </b-form-group>
         </b-col>
       </b-row>
 
@@ -108,7 +110,7 @@ export default {
       const method = this.modelItem.id ? 'put' : 'post'
       const id = this.modelItem.id ? `/${this.modelItem.id}` : ''
       const url = `${baseApiUrl}/categories${id}`
-      delete this.modelItem.path;
+      
       console.log(this.modelItem)
       axios[method](url, this.modelItem)
         .then(res => {
