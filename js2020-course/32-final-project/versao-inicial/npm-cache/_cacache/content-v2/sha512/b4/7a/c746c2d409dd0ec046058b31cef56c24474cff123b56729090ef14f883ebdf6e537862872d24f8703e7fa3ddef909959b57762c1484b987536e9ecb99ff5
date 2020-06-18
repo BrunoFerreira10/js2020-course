@@ -1,0 +1,1 @@
+{"name":"sec","dist-tags":{"latest":"1.0.0"},"versions":{"1.0.0":{"name":"sec","version":"1.0.0","devDependencies":{"ava":"0.0.4"},"dist":{"shasum":"033d60a3ad20ecf2e00940d14f97823465774335","tarball":"https://registry.npmjs.org/sec/-/sec-1.0.0.tgz"},"engines":{"node":">=0.10.0"}}},"modified":"2015-05-30T20:32:27.669Z"}
